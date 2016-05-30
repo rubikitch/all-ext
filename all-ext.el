@@ -1,11 +1,11 @@
-;;; all-ext.el --- Extension of M-x all
+;;; all-ext.el --- M-x all with helm/anything/multiple-cursors/line-number
 
 ;; Filename: all-ext.el
-;; Description: Extension of M-x all
+;; Description: M-x all with helm/anything/multiple-cursors/line-number
 ;; Author: rubikitch <rubikitch@ruby-lang.org>
 ;; Maintainer: rubikitch <rubikitch@ruby-lang.org>
 ;; Copyright (C) 2013, rubikitch, all rights reserved.
-;; Time-stamp: <2016-05-30 09:53:05 rubikitch>
+;; Time-stamp: <2016-05-30 10:11:33 rubikitch>
 ;; Created: 2013-01-31 16:05:17
 ;; Version: 0.1
 ;; URL: http://www.emacswiki.org/emacs/download/all-ext.el
