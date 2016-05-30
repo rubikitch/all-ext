@@ -5,7 +5,7 @@
 ;; Author: rubikitch <rubikitch@ruby-lang.org>
 ;; Maintainer: rubikitch <rubikitch@ruby-lang.org>
 ;; Copyright (C) 2013, rubikitch, all rights reserved.
-;; Time-stamp: <2013-02-01 07:17:07 rubikitch>
+;; Time-stamp: <2016-05-30 09:48:25 rubikitch>
 ;; Created: 2013-01-31 16:05:17
 ;; Version: 0.1
 ;; URL: http://www.emacswiki.org/emacs/download/all-ext.el
@@ -37,8 +37,8 @@
 ;; the Free Software Foundation, Inc., 51 Franklin Street, Fifth
 ;; Floor, Boston, MA 02110-1301, USA.
 
-;;; Commentary: 
-;; 
+;;; Commentary:
+;;
 ;; Extend M-x all to be editable M-x occur:
 ;;   - Show line number before line content (using overlay)
 ;;   - Can navigate with M-x next-error / M-x previous-error
@@ -68,6 +68,7 @@
 ;;; Code:
 
 (require 'all)
+(eval-when-compile (require 'cl))
 
 ;;;; Line number overlay
 (defun all-make-lineno-overlay (lineno)
@@ -190,6 +191,19 @@
 (defadvice all-mode (after next-error activate)
   (setq next-error-function 'all-next-error))
 ;; (progn (ad-disable-advice 'all-mode 'after 'next-error) (ad-update 'all-mode))
+
+;;;; `multiple-cursors' in `all'
+(declare-function mc/edit-lines "ext:mc-edit-lines^")
+(defun mc/edit-lines-in-all ()
+  "Invoke `multiple-cursors' from *All*."
+  (interactive)
+  (goto-char (point-max))
+  (setq mark-active t)
+  (push-mark nil t)
+  (goto-char (point-min))
+  (search-forward "--------\n" nil t)   ;or (forward-line 2)
+  (call-interactively 'mc/edit-lines))
+
 
 (provide 'all-ext)
 ;;; all-ext.el ends here
