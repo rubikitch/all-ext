@@ -5,7 +5,7 @@
 ;; Author: rubikitch <rubikitch@ruby-lang.org>
 ;; Maintainer: rubikitch <rubikitch@ruby-lang.org>
 ;; Copyright (C) 2013, rubikitch, all rights reserved.
-;; Time-stamp: <2016-05-30 09:48:25 rubikitch>
+;; Time-stamp: <2016-05-30 09:49:47 rubikitch>
 ;; Created: 2013-01-31 16:05:17
 ;; Version: 0.1
 ;; URL: http://www.emacswiki.org/emacs/download/all-ext.el
@@ -68,7 +68,6 @@
 ;;; Code:
 
 (require 'all)
-(eval-when-compile (require 'cl))
 
 ;;;; Line number overlay
 (defun all-make-lineno-overlay (lineno)
@@ -155,18 +154,18 @@
           (goto-char (point-min))
           (forward-line 1)              ;ignore title line
           ;; Find next match, but give up if prev match was at end of buffer.
-          (loop with regexp = (format "^\\(%s:\\| *\\)\\([0-9]+\\)[ :]\\(.+\\)$"
-                                      (buffer-name srcbuf))
-                while (re-search-forward regexp nil t)
-                for lineno = (string-to-number (match-string 2))
-                for content = (match-string 3)
-                do
-                (with-current-buffer srcbuf
-                  (save-excursion
-                    (goto-char (point-min))
-                    (goto-char (point-at-bol lineno))
-                    (all-from-anything-occur-insert
-                     (point) (progn (forward-line 1) (point)) lineno content)))))))))
+          (cl-loop with regexp = (format "^\\(%s:\\| *\\)\\([0-9]+\\)[ :]\\(.+\\)$"
+                                         (buffer-name srcbuf))
+                   while (re-search-forward regexp nil t)
+                   for lineno = (string-to-number (match-string 2))
+                   for content = (match-string 3)
+                   do
+                   (with-current-buffer srcbuf
+                     (save-excursion
+                       (goto-char (point-min))
+                       (goto-char (point-at-bol lineno))
+                       (all-from-anything-occur-insert
+                        (point) (progn (forward-line 1) (point)) lineno content)))))))))
 (defun all-from-anything-occur-insert (start end lineno content)
   (let ((marker (copy-marker start)))
     (with-current-buffer standard-output
