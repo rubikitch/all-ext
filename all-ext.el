@@ -5,7 +5,7 @@
 ;; Author: rubikitch <rubikitch@ruby-lang.org>
 ;; Maintainer: rubikitch <rubikitch@ruby-lang.org>
 ;; Copyright (C) 2013, 2016, rubikitch, all rights reserved.
-;; Time-stamp: <2016-05-30 10:13:01 rubikitch>
+;; Time-stamp: <2016-05-30 10:13:33 rubikitch>
 ;; Created: 2013-01-31 16:05:17
 ;; Version: 0.1
 ;; URL: http://www.emacswiki.org/emacs/download/all-ext.el
@@ -65,6 +65,7 @@
 ;; (require 'all-ext)
 ;; ;; optional
 ;; (require 'helm-config) ;; or (require 'anything-config)
+;; (define-key all-mode-map (kbd "C-c C-m") 'mc/edit-lines-in-all)
 ;;
 ;; No need more.
 
