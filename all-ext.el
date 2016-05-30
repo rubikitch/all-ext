@@ -5,7 +5,7 @@
 ;; Author: rubikitch <rubikitch@ruby-lang.org>
 ;; Maintainer: rubikitch <rubikitch@ruby-lang.org>
 ;; Copyright (C) 2013, rubikitch, all rights reserved.
-;; Time-stamp: <2016-05-30 09:49:47 rubikitch>
+;; Time-stamp: <2016-05-30 09:50:31 rubikitch>
 ;; Created: 2013-01-31 16:05:17
 ;; Version: 0.1
 ;; URL: http://www.emacswiki.org/emacs/download/all-ext.el
@@ -118,6 +118,8 @@
 (defvar anything-current-buffer)
 (defvar helm-buffer)
 (defvar helm-current-buffer)
+(defvar anything-map)
+(defvar helm-map)
 
 (eval-after-load "anything-config"
   '(define-key anything-map (kbd "C-c C-a") 'all-from-anything-occur))
