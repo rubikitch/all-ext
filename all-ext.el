@@ -5,13 +5,13 @@
 ;; Author: rubikitch <rubikitch@ruby-lang.org>
 ;; Maintainer: rubikitch <rubikitch@ruby-lang.org>
 ;; Copyright (C) 2013, 2016, rubikitch, all rights reserved.
-;; Time-stamp: <2016-05-30 10:12:20 rubikitch>
+;; Time-stamp: <2016-05-30 10:12:27 rubikitch>
 ;; Created: 2013-01-31 16:05:17
 ;; Version: 0.1
 ;; URL: http://www.emacswiki.org/emacs/download/all-ext.el
 ;; Package-Requires: ((all "1.0"))
 ;; Keywords: all, search, replace, anything, helm, occur
-;; Compatibility: GNU Emacs 24.2.2
+;; Compatibility: GNU Emacs 24.2.2, 24.5
 ;;
 ;; Features that might be required by this library:
 ;;
