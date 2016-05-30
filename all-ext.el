@@ -50,6 +50,9 @@
 ;;   2. Press C-c C-a to show anything/helm contents into *All* buffer
 ;;   3. You can edit *All* buffer!
 ;;
+;; Multiple-cursors in *All*:
+;;   - M-x mc/edit-lines-in-all sets one cursor to all lines in *All* buffer.
+;;
 ;;; Installation:
 ;;
 ;; Put all-ext.el to your load-path.
