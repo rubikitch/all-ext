@@ -1,16 +1,16 @@
-;;; all-ext.el --- M-x all with helm/anything/multiple-cursors/line-number
+;;; all-ext.el --- M-x all with helm(-swoop)/anything/multiple-cursors/line-number
 
 ;; Filename: all-ext.el
-;; Description: M-x all with helm/anything/multiple-cursors/line-number
+;; Description: M-x all with helm(-swoop)/anything/multiple-cursors/line-number
 ;; Author: rubikitch <rubikitch@ruby-lang.org>
 ;; Maintainer: rubikitch <rubikitch@ruby-lang.org>
 ;; Copyright (C) 2013, 2016, rubikitch, all rights reserved.
-;; Time-stamp: <2016-05-30 10:25:01 rubikitch>
+;; Time-stamp: <2016-05-30 10:28:07 rubikitch>
 ;; Created: 2013-01-31 16:05:17
 ;; Version: 0.1
 ;; URL: http://www.emacswiki.org/emacs/download/all-ext.el
 ;; Package-Requires: ((all "1.0"))
-;; Keywords: all, search, replace, anything, helm, occur
+;; Keywords: all, search, replace, anything, helm, helm-swoop, occur
 ;; Compatibility: GNU Emacs 24.2.2, 24.5
 ;;
 ;; Features that might be required by this library:
@@ -46,7 +46,7 @@
 ;; Call M-x all from anything/helm:
 ;;   1. Call anything/helm command showing lineno and content
 ;;      such as M-x anything-occur / anything-browse-code /
-;;              helm-occur / helm-browse-code etc
+;;              helm-occur / helm-swoop / helm-browse-code etc
 ;;   2. Press C-c C-a to show anything/helm contents into *All* buffer
 ;;   3. You can edit *All* buffer!
 ;;
