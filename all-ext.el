@@ -5,7 +5,7 @@
 ;; Author: rubikitch <rubikitch@ruby-lang.org>
 ;; Maintainer: rubikitch <rubikitch@ruby-lang.org>
 ;; Copyright (C) 2013, 2016, rubikitch, all rights reserved.
-;; Time-stamp: <2016-06-05 06:34:58 rubikitch>
+;; Time-stamp: <2016-06-05 06:40:37 rubikitch>
 ;; Created: 2013-01-31 16:05:17
 ;; Version: 0.1
 ;; URL: http://www.emacswiki.org/emacs/download/all-ext.el
@@ -52,6 +52,8 @@
 ;;
 ;; Multiple-cursors in *All*:
 ;;   - M-x mc/edit-lines-in-all sets one cursor to all lines in *All* buffer.
+;;
+;; *All* is undo-able!
 ;;
 ;;; Installation:
 ;;
@@ -213,6 +215,11 @@
   (search-forward "--------\n" nil t)   ;or (forward-line 2)
   (call-interactively 'mc/edit-lines))
 
+;;;; Undo-able in *All* buffer
+(defun all--enable-undo (&rest them)
+  (buffer-enable-undo "*All*"))
+(advice-add 'all :after 'all--enable-undo)
+(advice-add 'all-from-anything-occur-internal :after 'all--enable-undo)
 
 (provide 'all-ext)
 ;;; all-ext.el ends here
