@@ -5,13 +5,13 @@
 ;; Author: rubikitch <rubikitch@ruby-lang.org>
 ;; Maintainer: rubikitch <rubikitch@ruby-lang.org>
 ;; Copyright (C) 2013, 2016, rubikitch, all rights reserved.
-;; Time-stamp: <2016-05-30 10:28:07 rubikitch>
+;; Time-stamp: <2016-06-05 06:34:58 rubikitch>
 ;; Created: 2013-01-31 16:05:17
 ;; Version: 0.1
 ;; URL: http://www.emacswiki.org/emacs/download/all-ext.el
 ;; Package-Requires: ((all "1.0"))
 ;; Keywords: all, search, replace, anything, helm, helm-swoop, occur
-;; Compatibility: GNU Emacs 24.2.2, 24.5
+;; Compatibility: GNU Emacs 24.4, 24.5
 ;;
 ;; Features that might be required by this library:
 ;;
@@ -108,13 +108,10 @@
         (if (> nlines 0)
             (insert "--------\n"))))))
 
-(defun kill-All-buffer-maybe ()
+(defun kill-All-buffer-maybe (&rest ignore)
   (when (get-buffer "*All*")
     (kill-buffer "*All*")))
-(defadvice all (before delete-All-buffer activate)
-  "Kill *All* buffer to delete all line number overlays"
-  (kill-All-buffer-maybe))
-;; (progn (ad-disable-advice 'all 'before 'delete-all-buffer) (ad-update 'all))
+(advice-add 'all :before 'kill-All-buffer-maybe)
 
 ;;;; Call `all' from anything/helm
 (declare-function anything-run-after-quit "ext:anything")
@@ -201,9 +198,8 @@
           (forward-line 1))
         (forward-line argp)
         (all-mode-goto)))))
-(defadvice all-mode (after next-error activate)
-  (setq next-error-function 'all-next-error))
-;; (progn (ad-disable-advice 'all-mode 'after 'next-error) (ad-update 'all-mode))
+(advice-add 'all-mode :after
+            (lambda (&rest ignore) (setq next-error-function 'all-next-error)))
 
 ;;;; `multiple-cursors' in `all'
 (declare-function mc/edit-lines "ext:mc-edit-lines^")
