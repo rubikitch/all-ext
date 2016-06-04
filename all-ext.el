@@ -5,7 +5,7 @@
 ;; Author: rubikitch <rubikitch@ruby-lang.org>
 ;; Maintainer: rubikitch <rubikitch@ruby-lang.org>
 ;; Copyright (C) 2013, 2016, rubikitch, all rights reserved.
-;; Time-stamp: <2016-06-05 06:40:37 rubikitch>
+;; Time-stamp: <2016-06-05 06:43:51 rubikitch>
 ;; Created: 2013-01-31 16:05:17
 ;; Version: 0.1
 ;; URL: http://www.emacswiki.org/emacs/download/all-ext.el
@@ -220,6 +220,16 @@
   (buffer-enable-undo "*All*"))
 (advice-add 'all :after 'all--enable-undo)
 (advice-add 'all-from-anything-occur-internal :after 'all--enable-undo)
+
+;;;; mark-whole-buffer in *All*
+(defun all-mark-whole-contents ()
+  (interactive)
+  (goto-char (point-max))
+  (push-mark)
+  (goto-char (point-min))
+  (search-forward "--------\n" nil t)
+  (setq mark-active t))
+(define-key all-mode-map (kbd "C-x h") 'all-mark-whole-contents)
 
 (provide 'all-ext)
 ;;; all-ext.el ends here
