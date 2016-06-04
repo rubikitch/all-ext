@@ -5,7 +5,7 @@
 ;; Author: rubikitch <rubikitch@ruby-lang.org>
 ;; Maintainer: rubikitch <rubikitch@ruby-lang.org>
 ;; Copyright (C) 2013, 2016, rubikitch, all rights reserved.
-;; Time-stamp: <2016-06-05 06:43:51 rubikitch>
+;; Time-stamp: <2016-06-05 07:00:32 rubikitch>
 ;; Created: 2013-01-31 16:05:17
 ;; Version: 0.1
 ;; URL: http://www.emacswiki.org/emacs/download/all-ext.el
@@ -39,9 +39,10 @@
 
 ;;; Commentary:
 ;;
-;; Extend M-x all to be editable M-x occur:
+;; Extend M-x all (older than M-x occur-edit-mode) to be replacement of it.
 ;;   - Show line number before line content (using overlay)
 ;;   - Can navigate with M-x next-error / M-x previous-error
+;;   - Use C-x h in *All* to get all matched lines.
 ;;
 ;; Call M-x all from anything/helm:
 ;;   1. Call anything/helm command showing lineno and content
