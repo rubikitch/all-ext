@@ -152,7 +152,7 @@
 (defun all-from-helm-occur ()
   "Call `all' from `helm' content."
   (interactive)
-  (helm-run-after-quit
+  (helm-run-after-exit
    'all-from-anything-occur-internal "helm-occur"
    helm-buffer helm-current-buffer))
 
