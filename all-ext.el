@@ -5,7 +5,7 @@
 ;; Author: rubikitch <rubikitch@ruby-lang.org>
 ;; Maintainer: rubikitch <rubikitch@ruby-lang.org>
 ;; Copyright (C) 2013, 2016, rubikitch, all rights reserved.
-;; Time-stamp: <2016-06-05 07:00:32 rubikitch>
+;; Time-stamp: <2016-12-15 15:45:02 rubikitch>
 ;; Created: 2013-01-31 16:05:17
 ;; Version: 0.1
 ;; URL: http://www.emacswiki.org/emacs/download/all-ext.el
@@ -151,6 +151,8 @@
   (kill-All-buffer-maybe)
   (let ((all-initialization-p t)
         (buffer srcbuf)
+        (marked-candidates)
+        (tempbuf)
         (temp-buffer-show-function
          (and all-from-occur-select-window-flag
               ;; Use timer because `helm-swoop-line-overlay' remains!
@@ -165,8 +167,17 @@
 	  (goto-char (point-max)))
       (with-current-buffer anybuf
         (save-excursion
+          (when anything-marked-candidates
+            (setq marked-candidates (anything-marked-candidates)))
+          (when helm-marked-candidates
+            (setq marked-candidates (helm-marked-candidates)))
           (goto-char (point-min))
           (forward-line 1)              ;ignore title line
+          (when marked-candidates
+            (setq tempbuf (get-buffer-create (make-temp-name "all-ext-temp")))
+            (set-buffer tempbuf)
+            (insert (mapconcat 'identity marked-candidates "\n"))
+            (goto-char 1))
           ;; Find next match, but give up if prev match was at end of buffer.
           (cl-loop with regexp = (format "^\\(%s:\\| *\\)\\([0-9]+\\)[ :]\\(.+\\)$"
                                          (buffer-name srcbuf))
@@ -179,7 +190,8 @@
                        (goto-char (point-min))
                        (goto-char (point-at-bol lineno))
                        (all-from-anything-occur-insert
-                        (point) (progn (forward-line 1) (point)) lineno content)))))))))
+                        (point) (progn (forward-line 1) (point)) lineno content))))
+          (when tempbuf (kill-buffer tempbuf)))))))
 (defun all-from-anything-occur-insert (start end lineno content)
   (let ((marker (copy-marker start)))
     (with-current-buffer standard-output
