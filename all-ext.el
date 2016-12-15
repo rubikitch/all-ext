@@ -5,7 +5,7 @@
 ;; Author: rubikitch <rubikitch@ruby-lang.org>
 ;; Maintainer: rubikitch <rubikitch@ruby-lang.org>
 ;; Copyright (C) 2013, 2016, rubikitch, all rights reserved.
-;; Time-stamp: <2016-12-15 15:47:12 rubikitch>
+;; Time-stamp: <2016-12-15 15:49:43 rubikitch>
 ;; Created: 2013-01-31 16:05:17
 ;; Version: 0.1
 ;; URL: http://www.emacswiki.org/emacs/download/all-ext.el
@@ -129,8 +129,8 @@
   "Select *All* window from `helm-occur' or `anything-occur'."
   :type 'boolean)
 
-(eval-after-load "anything-config"
-  '(define-key anything-map (kbd "C-c C-a") 'all-from-anything-occur))
+(with-eval-after-load "anything-config"
+  (define-key anything-map (kbd "C-c C-a") 'all-from-anything-occur))
 (defun all-from-anything-occur ()
   "Call `all' from `anything' content."
   (interactive)
@@ -138,8 +138,8 @@
    'all-from-anything-occur-internal "anything-occur"
    anything-buffer anything-current-buffer))
 
-(eval-after-load "helm"
-  '(define-key helm-map (kbd "C-c C-a") 'all-from-helm-occur))
+(with-eval-after-load "helm"
+  (define-key helm-map (kbd "C-c C-a") 'all-from-helm-occur))
 (with-eval-after-load "helm-regexp"
   (setq helm-source-occur
         (delete '(nomark) helm-source-occur)))
