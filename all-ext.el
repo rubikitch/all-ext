@@ -77,6 +77,15 @@
 (require 'all)
 (require 'multiple-cursors nil t)
 
+(defgroup all nil
+  "Listing and editing matching lines."
+  :group 'matching)
+
+(defcustom all-from-occur-select-window-flag t
+  "Select *All* window from `helm-occur' or `anything-occur'."
+  :type 'boolean
+  :group 'all)
+
 ;;;; Line number overlay
 (defun all-make-lineno-overlay (lineno)
   (let ((o (make-overlay (point) (point))))
@@ -125,9 +134,6 @@
 (defvar helm-current-buffer)
 (defvar anything-map)
 (defvar helm-map)
-(defcustom all-from-occur-select-window-flag t
-  "Select *All* window from `helm-occur' or `anything-occur'."
-  :type 'boolean)
 
 (with-eval-after-load "anything-config"
   (define-key anything-map (kbd "C-c C-a") 'all-from-anything-occur))
