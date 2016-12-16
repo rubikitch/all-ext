@@ -5,7 +5,7 @@
 ;; Author: rubikitch <rubikitch@ruby-lang.org>
 ;; Maintainer: rubikitch <rubikitch@ruby-lang.org>
 ;; Copyright (C) 2013, 2016, rubikitch, all rights reserved.
-;; Time-stamp: <2016-12-16 09:14:03 rubikitch>
+;; Time-stamp: <2016-12-16 21:13:40 rubikitch>
 ;; Created: 2013-01-31 16:05:17
 ;; Version: 0.1
 ;; URL: http://www.emacswiki.org/emacs/download/all-ext.el
@@ -176,10 +176,9 @@
 	  (goto-char (point-max)))
       (with-current-buffer anybuf
         (save-excursion
-          (when (bound-and-true-p anything-marked-candidates)
-            (setq marked-candidates (anything-marked-candidates)))
-          (when (bound-and-true-p helm-marked-candidates)
-            (setq marked-candidates (helm-marked-candidates)))
+          (setq marked-candidates (mapcar (lambda (o) (overlay-get o 'string))
+                                          (or (bound-and-true-p anything-visible-mark-overlays)
+                                              (bound-and-true-p helm-visible-mark-overlays))))
           (goto-char (point-min))
           (forward-line 1)              ;ignore title line
           (when marked-candidates
