@@ -5,7 +5,7 @@
 ;; Author: rubikitch <rubikitch@ruby-lang.org>
 ;; Maintainer: rubikitch <rubikitch@ruby-lang.org>
 ;; Copyright (C) 2013, 2016, rubikitch, all rights reserved.
-;; Time-stamp: <2017-01-09 15:10:38 rubikitch>
+;; Time-stamp: <2017-01-09 15:13:02 rubikitch>
 ;; Created: 2013-01-31 16:05:17
 ;; Version: 0.1
 ;; URL: http://www.emacswiki.org/emacs/download/all-ext.el
@@ -189,6 +189,8 @@
           (when marked-candidates
             (setq tempbuf (get-buffer-create (make-temp-name "all-ext-temp")))
             (set-buffer tempbuf)
+            ;; FIXME copy helm-swoop-target-word-face
+            ;; TODO for helm-occur and anything-occur
             (insert (mapconcat 'identity marked-candidates "\n"))
             (goto-char 1))
           ;; Find next match, but give up if prev match was at end of buffer.
