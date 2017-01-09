@@ -5,7 +5,7 @@
 ;; Author: rubikitch <rubikitch@ruby-lang.org>
 ;; Maintainer: rubikitch <rubikitch@ruby-lang.org>
 ;; Copyright (C) 2013, 2016, rubikitch, all rights reserved.
-;; Time-stamp: <2016-12-16 21:13:40 rubikitch>
+;; Time-stamp: <2017-01-09 13:01:09 rubikitch>
 ;; Created: 2013-01-31 16:05:17
 ;; Version: 0.1
 ;; URL: http://www.emacswiki.org/emacs/download/all-ext.el
@@ -75,6 +75,8 @@
 ;;; Code:
 
 (require 'all)
+(require 'cl-lib)
+
 (require 'multiple-cursors nil t)
 
 (defgroup all nil
@@ -225,16 +227,24 @@
             (lambda (&rest ignore) (setq next-error-function 'all-next-error)))
 
 ;;;; `multiple-cursors' in `all'
-(declare-function mc/edit-lines "ext:mc-edit-lines^")
 (defun mc/edit-lines-in-all ()
   "Invoke `multiple-cursors' from *All*."
   (interactive)
-  (goto-char (point-max))
-  (setq mark-active t)
-  (push-mark nil t)
   (goto-char (point-min))
   (search-forward "--------\n" nil t)   ;or (forward-line 2)
-  (call-interactively 'mc/edit-lines))
+  (cl-loop with initpos
+           while (not (eobp))
+           for i from 0
+           for match-beg = (text-property-any  (point)(point-max) 'face 'match)
+           do
+           (when match-beg
+             (goto-char match-beg))
+           (if (zerop i)
+               (setq initpos (point))
+             (mc/create-fake-cursor-at-point))
+           (forward-line 1)
+           finally (goto-char initpos))
+  (multiple-cursors-mode))
 
 ;;;; Undo-able in *All* buffer
 (defun all--enable-undo (&rest them)
