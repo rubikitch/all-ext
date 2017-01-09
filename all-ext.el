@@ -5,7 +5,7 @@
 ;; Author: rubikitch <rubikitch@ruby-lang.org>
 ;; Maintainer: rubikitch <rubikitch@ruby-lang.org>
 ;; Copyright (C) 2013, 2016, rubikitch, all rights reserved.
-;; Time-stamp: <2017-01-09 13:03:53 rubikitch>
+;; Time-stamp: <2017-01-09 15:10:38 rubikitch>
 ;; Created: 2013-01-31 16:05:17
 ;; Version: 0.1
 ;; URL: http://www.emacswiki.org/emacs/download/all-ext.el
@@ -179,6 +179,8 @@
 	  (goto-char (point-max)))
       (with-current-buffer anybuf
         (save-excursion
+          (ignore-errors
+            (delete-overlay (car (overlays-at (point-at-bol)))))
           (setq marked-candidates (mapcar (lambda (o) (overlay-get o 'string))
                                           (or (bound-and-true-p anything-visible-mark-overlays)
                                               (bound-and-true-p helm-visible-mark-overlays))))
@@ -195,21 +197,39 @@
                    while (re-search-forward regexp nil t)
                    for lineno = (string-to-number (match-string 2))
                    for content = (match-string 3)
+                   ;; TODO make function
+                   for match-beg = (save-excursion
+                                     (goto-char (match-beginning 3))
+                                     (cl-loop with pt
+                                              while (and (setq pt (next-char-property-change (point)))
+                                                         pt (< pt (point-at-eol)))
+                                              do
+                                              (goto-char pt)
+                                              (when (memq (or (get-char-property (point) 'read-face-name)
+                                                              (get-char-property (point) 'face))
+                                                          '(helm-swoop-target-word-face
+                                                            ;; FIXME helm-occur
+                                                            ;; TODO anything-occur
+                                                            helm-grep-match))
+                                                (return (- (point) (match-beginning 3))))))
                    do
                    (with-current-buffer srcbuf
                      (save-excursion
                        (goto-char (point-min))
                        (goto-char (point-at-bol lineno))
                        (all-from-anything-occur-insert
-                        (point) (progn (forward-line 1) (point)) lineno content))))
+                        (point) (progn (forward-line 1) (point)) lineno content match-beg))))
           (when tempbuf (kill-buffer tempbuf)))))))
-(defun all-from-anything-occur-insert (start end lineno content)
+(defun all-from-anything-occur-insert (start end lineno content match-beg)
   (let ((marker (copy-marker start)))
     (with-current-buffer standard-output
       (let ((from (point)) to)
         (insert content "\n")
         (setq to (point))
         (goto-char from)
+        (and match-beg
+             (put-text-property (+ (point) match-beg) (+ (point) 1 match-beg)
+                                'face 'match))
         (all-make-lineno-overlays-from-here to lineno)
         (goto-char to)
         (overlay-put (make-overlay from to) 'all-marker marker)))))
