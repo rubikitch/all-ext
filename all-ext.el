@@ -5,7 +5,7 @@
 ;; Author: rubikitch <rubikitch@ruby-lang.org>
 ;; Maintainer: rubikitch <rubikitch@ruby-lang.org>
 ;; Copyright (C) 2013, 2016, rubikitch, all rights reserved.
-;; Time-stamp: <2017-01-09 13:01:09 rubikitch>
+;; Time-stamp: <2017-01-09 13:03:53 rubikitch>
 ;; Created: 2013-01-31 16:05:17
 ;; Version: 0.1
 ;; URL: http://www.emacswiki.org/emacs/download/all-ext.el
@@ -129,13 +129,14 @@
 
 ;;;; Call `all' from anything/helm
 (declare-function anything-run-after-quit "ext:anything")
-(declare-function helm-run-after-quit "ext:helm")
+(declare-function helm-run-after-exit "ext:helm")
 (defvar anything-buffer)
 (defvar anything-current-buffer)
 (defvar helm-buffer)
 (defvar helm-current-buffer)
 (defvar anything-map)
 (defvar helm-map)
+(defvar helm-source-occur)
 
 (with-eval-after-load "anything-config"
   (define-key anything-map (kbd "C-c C-a") 'all-from-anything-occur))
