@@ -199,12 +199,9 @@
                                                          pt (< pt (point-at-eol)))
                                               do
                                               (goto-char pt)
-                                              (when (memq (or (get-char-property (point) 'read-face-name)
-                                                              (get-char-property (point) 'face))
-                                                          '(helm-swoop-target-word-face
-                                                            ;; FIXME helm-occur
-                                                            ;; TODO anything-occur
-                                                            helm-grep-match))
+                                              (when (eq (or (get-char-property (point) 'read-face-name)
+                                                            (get-char-property (point) 'face))
+                                                          'helm-swoop-target-word-face)
                                                 (return (- (point) (match-beginning 3))))))
                    do
                    (when (or (null marked-candidates)
