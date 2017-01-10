@@ -5,7 +5,7 @@
 ;; Author: rubikitch <rubikitch@ruby-lang.org>
 ;; Maintainer: rubikitch <rubikitch@ruby-lang.org>
 ;; Copyright (C) 2013, 2016, rubikitch, all rights reserved.
-;; Time-stamp: <2017-01-09 15:13:02 rubikitch>
+;; Time-stamp: <2017-01-10 14:05:12 rubikitch>
 ;; Created: 2013-01-31 16:05:17
 ;; Version: 0.1
 ;; URL: http://www.emacswiki.org/emacs/download/all-ext.el
@@ -179,20 +179,12 @@
 	  (goto-char (point-max)))
       (with-current-buffer anybuf
         (save-excursion
-          (ignore-errors
-            (delete-overlay (car (overlays-at (point-at-bol)))))
+          (ignore-errors (delete-overlay helm-selection-overlay))
           (setq marked-candidates (mapcar (lambda (o) (overlay-get o 'string))
                                           (or (bound-and-true-p anything-visible-mark-overlays)
                                               (bound-and-true-p helm-visible-mark-overlays))))
           (goto-char (point-min))
           (forward-line 1)              ;ignore title line
-          (when marked-candidates
-            (setq tempbuf (get-buffer-create (make-temp-name "all-ext-temp")))
-            (set-buffer tempbuf)
-            ;; FIXME copy helm-swoop-target-word-face
-            ;; TODO for helm-occur and anything-occur
-            (insert (mapconcat 'identity marked-candidates "\n"))
-            (goto-char 1))
           ;; Find next match, but give up if prev match was at end of buffer.
           (cl-loop with regexp = (format "^\\(%s:\\| *\\)\\([0-9]+\\)[ :]\\(.+\\)$"
                                          (buffer-name srcbuf))
@@ -215,12 +207,14 @@
                                                             helm-grep-match))
                                                 (return (- (point) (match-beginning 3))))))
                    do
-                   (with-current-buffer srcbuf
-                     (save-excursion
-                       (goto-char (point-min))
-                       (goto-char (point-at-bol lineno))
-                       (all-from-anything-occur-insert
-                        (point) (progn (forward-line 1) (point)) lineno content match-beg))))
+                   (when (or (null marked-candidates)
+                             (member (buffer-substring (point-at-bol) (min (point-max) (1+ (point-at-eol)))) marked-candidates))
+                     (with-current-buffer srcbuf
+                              (save-excursion
+                                (goto-char (point-min))
+                                (goto-char (point-at-bol lineno))
+                                (all-from-anything-occur-insert
+                                 (point) (progn (forward-line 1) (point)) lineno content match-beg)))))
           (when tempbuf (kill-buffer tempbuf)))))))
 (defun all-from-anything-occur-insert (start end lineno content match-beg)
   (let ((marker (copy-marker start)))
