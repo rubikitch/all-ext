@@ -1,11 +1,11 @@
-;;; all-ext.el --- M-x all with helm(-swoop)/anything/multiple-cursors/line-number
+;;; all-ext.el --- M-x all with helm-swoop/anything/multiple-cursors/line-number
 
 ;; Filename: all-ext.el
-;; Description: M-x all with helm(-swoop)/anything/multiple-cursors/line-number
+;; Description: M-x all with helm-swoop/anything/multiple-cursors/line-number
 ;; Author: rubikitch <rubikitch@ruby-lang.org>
 ;; Maintainer: rubikitch <rubikitch@ruby-lang.org>
 ;; Copyright (C) 2013, 2016, rubikitch, all rights reserved.
-;; Time-stamp: <2017-01-10 14:05:12 rubikitch>
+;; Time-stamp: <2017-01-10 14:11:59 rubikitch>
 ;; Created: 2013-01-31 16:05:17
 ;; Version: 0.1
 ;; URL: http://www.emacswiki.org/emacs/download/all-ext.el
@@ -15,7 +15,7 @@
 ;;
 ;; Features that might be required by this library:
 ;;
-;; `all', `anything', `helm', `multiple-cursors'
+;; `all', `anything', `helm', `helm-swoop', `multiple-cursors'
 ;;
 
 ;;; This file is NOT part of GNU Emacs
@@ -47,12 +47,14 @@
 ;; Call M-x all from anything/helm:
 ;;   1. Call anything/helm command showing lineno and content
 ;;      such as M-x anything-occur / anything-browse-code /
-;;              helm-occur / helm-swoop / helm-browse-code etc
+;;              helm-occur / helm-swoop(RECOMMENDED!) etc
 ;;   2. Press C-c C-a to show anything/helm contents into *All* buffer
 ;;   3. You can edit *All* buffer!
 ;;
 ;; Multiple-cursors in *All*:
-;;   - M-x mc/edit-lines-in-all sets one cursor to all lines in *All* buffer.
+;;   - Press C-c C-m sets one cursor to all lines in *All* buffer.
+;;   - If you use helm-swoop, set multiple cursors at the first match!
+;;     - Otherwise, they are at the beginning of line. (limitation)
 ;;
 ;; *All* is undo-able!
 ;;
