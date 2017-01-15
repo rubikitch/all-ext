@@ -5,10 +5,10 @@
 ;; Author: rubikitch <rubikitch@ruby-lang.org>
 ;; Maintainer: rubikitch <rubikitch@ruby-lang.org>
 ;; Copyright (C) 2013, 2016, rubikitch, all rights reserved.
-;; Time-stamp: <2017-01-10 14:11:59 rubikitch>
+;; Time-stamp: <2017-01-15 11:04:53 rubikitch>
 ;; Created: 2013-01-31 16:05:17
-;; Version: 0.1
-;; URL: http://www.emacswiki.org/emacs/download/all-ext.el
+;; Version: 0.5
+;; URL: https://github.com/rubikitch/all-ext
 ;; Package-Requires: ((all "1.0"))
 ;; Keywords: all, search, replace, anything, helm, helm-swoop, occur
 ;; Compatibility: GNU Emacs 24.4, 24.5, 25.1
@@ -68,9 +68,6 @@
 ;; And the following to your ~/.emacs startup file.
 ;;
 ;; (require 'all-ext)
-;; ;; optional
-;; (require 'helm-config) ;; or (require 'anything-config)
-;; (define-key all-mode-map (kbd "C-c C-m") 'mc/edit-lines-in-all)
 ;;
 ;; No need more.
 
@@ -80,6 +77,7 @@
 (require 'cl-lib)
 
 (require 'multiple-cursors nil t)
+(define-key all-mode-map (kbd "C-c C-m") 'mc/edit-lines-in-all)
 
 (defgroup all nil
   "Listing and editing matching lines."
