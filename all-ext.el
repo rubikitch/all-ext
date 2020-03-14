@@ -5,10 +5,10 @@
 ;; Author: rubikitch <rubikitch@ruby-lang.org>
 ;; Maintainer: rubikitch <rubikitch@ruby-lang.org>
 ;; Created: 2013-01-31 16:05:17
+;; Keywords: matching all search replace anything helm helm-swoop occur
 ;; Version: 0.5
 ;; URL: https://github.com/rubikitch/all-ext
 ;; Package-Requires: ((emacs "24.4") (all "1.0"))
-;; Keywords: matching all search replace anything helm helm-swoop occur
 
 ;; Features that might be required by this library:
 
