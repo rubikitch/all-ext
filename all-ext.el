@@ -84,10 +84,11 @@
 
 ;;;; Line number overlay
 (defun all-make-lineno-overlay (lineno)
-  (let ((o (make-overlay (point) (point))))
-    (overlay-put o 'before-string (format "%7d:" lineno))
-    (overlay-put o 'face 'default)
-    o))
+  (let ((ov (make-overlay (point) (point))))
+    (overlay-put ov 'before-string (format "%7d:" lineno))
+    (overlay-put ov 'face 'default)
+    ov))
+
 (defun all-make-lineno-overlays-from-here (to lineno)
   (all-make-lineno-overlay lineno)
   (while (search-forward "\n" (1- to) t)
