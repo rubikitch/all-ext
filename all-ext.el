@@ -277,4 +277,9 @@
 (define-key all-mode-map (kbd "C-x h") 'all-mark-whole-contents)
 
 (provide 'all-ext)
+
+;; Local Variables:
+;; indent-tabs-mode: nil
+;; End:
+
 ;;; all-ext.el ends here
