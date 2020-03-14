@@ -1,8 +1,9 @@
 ;;; all-ext.el --- M-x all with helm-swoop/anything/multiple-cursors/line-number
 
+;; Copyright (C) 2013, 2016, rubikitch, all rights reserved.
+
 ;; Author: rubikitch <rubikitch@ruby-lang.org>
 ;; Maintainer: rubikitch <rubikitch@ruby-lang.org>
-;; Copyright (C) 2013, 2016, rubikitch, all rights reserved.
 ;; Created: 2013-01-31 16:05:17
 ;; Version: 0.5
 ;; URL: https://github.com/rubikitch/all-ext
