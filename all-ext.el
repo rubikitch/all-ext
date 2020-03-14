@@ -9,9 +9,8 @@
 ;; Created: 2013-01-31 16:05:17
 ;; Version: 0.5
 ;; URL: https://github.com/rubikitch/all-ext
-;; Package-Requires: ((all "1.0"))
+;; Package-Requires: ((emacs "24.4") (all "1.0"))
 ;; Keywords: matching all search replace anything helm helm-swoop occur
-;; Compatibility: GNU Emacs 24.4, 24.5, 25.1
 
 ;; Features that might be required by this library:
 
