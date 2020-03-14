@@ -54,7 +54,7 @@
 ;; Multiple-cursors in *All*:
 ;;   - Press C-c C-m sets one cursor to all lines in *All* buffer.
 ;;   - If you use helm-swoop, set multiple cursors at the first match!
-;;     - Otherwise, they are at the beginning of line. (limitation)
+;;     - Otherwise, they are at the beginning of line.  (limitation)
 
 ;; *All* is undo-able!
 
