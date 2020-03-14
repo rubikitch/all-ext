@@ -112,7 +112,7 @@
         (setq to (point))
         (goto-char from)
         (all-make-lineno-overlays-from-here
-          to (with-current-buffer buffer (line-number-at-pos start)))
+         to (with-current-buffer buffer (line-number-at-pos start)))
         (overlay-put (make-overlay from to) 'all-marker marker)
         (goto-char from)
         (while (re-search-forward regexp to t)
@@ -171,12 +171,12 @@
               (lambda (b) (run-with-timer 0 nil 'pop-to-buffer b)))))
     (with-output-to-temp-buffer "*All*"
       (with-current-buffer standard-output
-	(all-mode)
-	(setq all-buffer buffer)
+        (all-mode)
+        (setq all-buffer buffer)
         (insert "From " from "\n")
-	(insert "--------\n"))
+        (insert "--------\n"))
       (if (eq buffer standard-output)
-	  (goto-char (point-max)))
+          (goto-char (point-max)))
       (with-current-buffer anybuf
         (save-excursion
           (ignore-errors (delete-overlay helm-selection-overlay))
@@ -201,17 +201,17 @@
                                               (goto-char pt)
                                               (when (eq (or (get-char-property (point) 'read-face-name)
                                                             (get-char-property (point) 'face))
-                                                          'helm-swoop-target-word-face)
+                                                        'helm-swoop-target-word-face)
                                                 (return (- (point) (match-beginning 3))))))
                    do
                    (when (or (null marked-candidates)
                              (member (buffer-substring (point-at-bol) (min (point-max) (1+ (point-at-eol)))) marked-candidates))
                      (with-current-buffer srcbuf
-                              (save-excursion
-                                (goto-char (point-min))
-                                (goto-char (point-at-bol lineno))
-                                (all-from-anything-occur-insert
-                                 (point) (progn (forward-line 1) (point)) lineno content match-beg)))))
+                       (save-excursion
+                         (goto-char (point-min))
+                         (goto-char (point-at-bol lineno))
+                         (all-from-anything-occur-insert
+                          (point) (progn (forward-line 1) (point)) lineno content match-beg)))))
           (when tempbuf (kill-buffer tempbuf)))))))
 (defun all-from-anything-occur-insert (start end lineno content match-beg)
   (let ((marker (copy-marker start)))
