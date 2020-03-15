@@ -80,44 +80,6 @@
   :group 'all)
 
 
-;;; functions
-
-;; Line number overlay
-(defun all-make-lineno-overlay (lineno)
-  (let ((ov (make-overlay (point) (point))))
-    (overlay-put ov 'before-string (format "%7d:" lineno))
-    (overlay-put ov 'face 'default)
-    ov))
-
-(defun all-make-lineno-overlays-from-here (to lineno)
-  (all-make-lineno-overlay lineno)
-  (while (search-forward "\n" (1- to) t)
-    (setq lineno (1+ lineno))
-    (all-make-lineno-overlay lineno)))
-
-;; REDEFINED original
-(defun all-insert (start end regexp nlines)
-  "Redefined original `all-insert' to display line number overlay."
-  ;; Insert match.
-  (let ((marker (copy-marker start))
-        (buffer (current-buffer)))
-    (with-current-buffer standard-output
-      (let ((from (point)) to)
-        (insert-buffer-substring buffer start end)
-        (setq to (point))
-        (goto-char from)
-        (all-make-lineno-overlays-from-here
-         to (with-current-buffer buffer (line-number-at-pos start)))
-        (overlay-put (make-overlay from to) 'all-marker marker)
-        (goto-char from)
-        (while (re-search-forward regexp to t)
-          (put-text-property (match-beginning 0) (match-end 0)
-                             'face 'match))
-        (goto-char to)
-        (if (> nlines 0)
-            (insert "--------\n"))))))
-
-
 ;;; anything/helm integration
 
 ;; Call `all' from anything/helm
