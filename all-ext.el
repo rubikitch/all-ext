@@ -164,6 +164,7 @@
     (with-output-to-temp-buffer "*All*"
       (with-current-buffer standard-output
         (all-mode)
+        (buffer-enable-undo)
         (setq all-buffer buffer)
         (insert "From " from "\n")
         (insert "--------\n"))
@@ -256,12 +257,6 @@
            (forward-line 1)
            finally (goto-char initpos))
   (multiple-cursors-mode))
-
-;;;; Undo-able in *All* buffer
-(defun all--enable-undo (&rest them)
-  (buffer-enable-undo "*All*"))
-(advice-add 'all :after 'all--enable-undo)
-(advice-add 'all-from-anything-occur-internal :after 'all--enable-undo)
 
 ;;;; mark-whole-buffer in *All*
 (defun all-mark-whole-contents ()
