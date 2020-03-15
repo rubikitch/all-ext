@@ -258,16 +258,6 @@
            finally (goto-char initpos))
   (multiple-cursors-mode))
 
-;;;; mark-whole-buffer in *All*
-(defun all-mark-whole-contents ()
-  (interactive)
-  (goto-char (point-max))
-  (push-mark)
-  (goto-char (point-min))
-  (search-forward "--------\n" nil t)
-  (setq mark-active t))
-(define-key all-mode-map (kbd "C-x h") 'all-mark-whole-contents)
-
 (provide 'all-ext)
 
 ;; Local Variables:
