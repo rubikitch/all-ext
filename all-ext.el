@@ -70,9 +70,6 @@
 (require 'all)
 (require 'cl-lib)
 
-(require 'multiple-cursors nil t)
-(define-key all-mode-map (kbd "C-c C-m") 'mc/edit-lines-in-all)
-
 (defgroup all nil
   "Listing and editing matching lines."
   :group 'matching)
@@ -235,7 +232,12 @@
 (advice-add 'all-mode :after
             (lambda (&rest ignore) (setq next-error-function 'all-next-error)))
 
+
 ;;;; `multiple-cursors' in `all'
+
+(require 'multiple-cursors nil t)
+(define-key all-mode-map (kbd "C-c C-m") 'mc/edit-lines-in-all)
+
 (defun mc/edit-lines-in-all ()
   "Invoke `multiple-cursors' from *All*."
   (interactive)
