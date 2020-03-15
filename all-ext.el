@@ -114,11 +114,6 @@
         (if (> nlines 0)
             (insert "--------\n"))))))
 
-(defun kill-All-buffer-maybe (&rest ignore)
-  (when (get-buffer "*All*")
-    (kill-buffer "*All*")))
-(advice-add 'all :before 'kill-All-buffer-maybe)
-
 ;;;; Call `all' from anything/helm
 (declare-function anything-run-after-quit "ext:anything")
 (declare-function helm-run-after-exit "ext:helm")
