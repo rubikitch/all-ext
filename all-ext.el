@@ -79,7 +79,10 @@
   :type 'boolean
   :group 'all)
 
-;;;; Line number overlay
+
+;;; functions
+
+;; Line number overlay
 (defun all-make-lineno-overlay (lineno)
   (let ((ov (make-overlay (point) (point))))
     (overlay-put ov 'before-string (format "%7d:" lineno))
@@ -92,7 +95,7 @@
     (setq lineno (1+ lineno))
     (all-make-lineno-overlay lineno)))
 
-;;; REDEFINED original
+;; REDEFINED original
 (defun all-insert (start end regexp nlines)
   "Redefined original `all-insert' to display line number overlay."
   ;; Insert match.
@@ -114,7 +117,10 @@
         (if (> nlines 0)
             (insert "--------\n"))))))
 
-;;;; Call `all' from anything/helm
+
+;;; anything/helm integration
+
+;; Call `all' from anything/helm
 (declare-function anything-run-after-quit "ext:anything")
 (declare-function helm-run-after-exit "ext:helm")
 (defvar anything-buffer)
@@ -127,6 +133,7 @@
 
 (with-eval-after-load "anything-config"
   (define-key anything-map (kbd "C-c C-a") 'all-from-anything-occur))
+
 (defun all-from-anything-occur ()
   "Call `all' from `anything' content."
   (interactive)
@@ -136,9 +143,11 @@
 
 (with-eval-after-load "helm"
   (define-key helm-map (kbd "C-c C-a") 'all-from-helm-occur))
+
 (with-eval-after-load "helm-regexp"
   (setq helm-source-occur
         (delete '(nomark) helm-source-occur)))
+
 (defun all-from-helm-occur ()
   "Call `all' from `helm' content."
   (interactive)
@@ -201,6 +210,7 @@
                          (all-from-anything-occur-insert
                           (point) (progn (forward-line 1) (point)) lineno content match-beg)))))
           (when tempbuf (kill-buffer tempbuf)))))))
+
 (defun all-from-anything-occur-insert (start end lineno content match-beg)
   (let ((marker (copy-marker start)))
     (with-current-buffer standard-output
@@ -229,7 +239,7 @@
             (lambda (&rest ignore) (setq next-error-function 'all-next-error)))
 
 
-;;;; `multiple-cursors' in `all'
+;;; multiple-cursors integration
 
 (require 'multiple-cursors nil t)
 (define-key all-mode-map (kbd "C-c C-m") 'mc/edit-lines-in-all)
